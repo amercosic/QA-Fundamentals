@@ -1,0 +1,940 @@
+{
+	"info": {
+		"_postman_id": "1871f12f-5636-4375-b63b-0488c5aa31ef",
+		"name": "QA Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Trello",
+			"item": [
+				{
+					"name": "Post Board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9010e09-1241-4e6f-a68a-469de3bebf97",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,202]);",
+									"});",
+									"",
+									"pm.test(\"Is descritption empty\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.desc).to.eql(\"\");",
+									"});",
+									"",
+									"",
+									"var jsonData = pm.response.json();",
+									"var id = jsonData.id;",
+									"pm.globals.set(\"boardID\", id);",
+									"",
+									"pm.environment.set(\"envBoardID\", id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards?name=Novi Test za varijable&key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Novi Test za varijable"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Kreiranje boarda"
+					},
+					"response": []
+				},
+				{
+					"name": "GET trello board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{boardID}}?key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Trello Boarda",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{boardID}}?name=Update Novi Test var&desc=An update for the board&key={{key}}&token={{token}}&=",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Update Novi Test var"
+								},
+								{
+									"key": "desc",
+									"value": "An update for the board"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Board",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{boardID}}?key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Trello list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2815f4ba-c780-4970-a609-1ead2313d202",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var id = jsonData.id;",
+									"pm.globals.set(\"listID\", id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists?name=Test List&idBoard={{boardID}}&key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Test List"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{boardID}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Trello list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{listID}}?key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{listID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Trello list",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{listID}}?key={{key}}&token={{token}}&name=Novo Ime za Listu",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{listID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "Novo Ime za Listu"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Postman 1",
+			"item": [
+				{
+					"name": "GET HTML WatchSeries ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "11f59737-8be6-447e-82af-15d24f5d2495",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www1.swatchseries.to/",
+							"protocol": "https",
+							"host": [
+								"www1",
+								"swatchseries",
+								"to"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET HTML Google",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a7ff99c-8fbc-451f-bbfe-7dd5a768b9ff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 100ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(100);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Server is present\", function () {",
+									"    pm.response.to.have.header(\"Server\");",
+									"});",
+									"",
+									"pm.test(\"X-XSS-Protection is present\", function () {",
+									"    pm.response.to.have.header(\"X-XSS-Protection\");",
+									"});",
+									"",
+									"pm.test(\"Check value of header X-XSS-Protection\", function () {",
+									"   pm.response.to.have.header(\"X-XSS-Protection\");",
+									"   pm.response.to.be.header(\"X-XSS-Protection\", \"0\");",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Gmail\");",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Images\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.google.com/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"google",
+								"com"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PNG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9e9700af-bd21-4d59-b603-3866af8710cf",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.w3schools.com/w3css/img_lights.jpg",
+							"protocol": "https",
+							"host": [
+								"www",
+								"w3schools",
+								"com"
+							],
+							"path": [
+								"w3css",
+								"img_lights.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET XML Klix",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa02203f-30b9-4171-93b1-56110d470368",
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.klix.ba/rss/vijesti/svijet",
+							"protocol": "https",
+							"host": [
+								"www",
+								"klix",
+								"ba"
+							],
+							"path": [
+								"rss",
+								"vijesti",
+								"svijet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET JSON ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c8df687-daf6-431b-921d-29cfd6623c05",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"Status code is 300\", function () {",
+									"    pm.response.to.have.status(300);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET HTML with params",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "51092813-9bc6-4a61-8f27-82a966d47208",
+								"exec": [
+									"pm.test(\"Status code is 100\", function () {",
+									"    pm.response.to.have.status(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.google.com/search?q=Amer&value=1000",
+							"protocol": "https",
+							"host": [
+								"www",
+								"google",
+								"com"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Amer",
+									"description": "This is search"
+								},
+								{
+									"key": "value",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET json test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "565499a5-6620-4bfa-b22e-b174ff3ae025",
+								"exec": [
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"args\");",
+									"});",
+									"",
+									"pm.test(\"Json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData.headers.Accept);",
+									"    var accept = jsonData.headers.Accept",
+									"    pm.expect(accept).to.eql(\"*/*\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://httpbin.org/get",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"get"
+							]
+						},
+						"description": "\t"
+					},
+					"response": [
+						{
+							"name": "GET json test Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://httpbin.org/get",
+									"protocol": "http",
+									"host": [
+										"httpbin",
+										"org"
+									],
+									"path": [
+										"get"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Jun 2019 10:16:00 GMT"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer-when-downgrade"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Content-Length",
+									"value": "238"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"args\": {},\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate\",\n        \"Cache-Control\": \"no-cache\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"e981a4ee-5403-46ad-88bf-ce2fe9496194\",\n        \"User-Agent\": \"PostmanRuntime/7.15.0\"\n    },\n    \"origin\": \"77.77.213.14, 77.77.213.14\",\n    \"url\": \"https://httpbin.org/get\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Chuck Norris Jason",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e97b8a2-3540-4adc-9853-45bebddaed8c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 100ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(100);",
+									"});",
+									"",
+									"pm.test(\"Connection is present\", function () {",
+									"    pm.response.to.have.header(\"Connection\");",
+									"});",
+									"",
+									"pm.test(\"Does value of Connection = keep-alive\", function () {",
+									"   pm.response.to.be.header(\"Connection\", \"keep-alive\");",
+									"});",
+									"",
+									"pm.test(\"Chuck Joke\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.value).to.eql(\"Chuck Norris can down a shot before he even orders it\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.chucknorris.io/jokes/random",
+							"protocol": "https",
+							"host": [
+								"api",
+								"chucknorris",
+								"io"
+							],
+							"path": [
+								"jokes",
+								"random"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Chuck Norris 2nd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6979b980-f6ef-459c-ad9b-8c226ad54c9c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 100ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(100);",
+									"});",
+									"",
+									"pm.test(\"Connection\", function () {",
+									"    pm.response.to.have.header(\"Connection\");",
+									"});",
+									"",
+									"pm.test(\"Connection\", function () {",
+									"    pm.response.to.be.header(\"Connection\", \"keep-alive\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Connection\", function () {",
+									"    var mojResponse = pm.response.json();",
+									"    console.log(mojResponse);",
+									"    pm.expect(mojResponse.icon_url).to.eql(\"https://assets.chucknorris.host/img/avatar/chuck-norris.png\");",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.chucknorris.io/jokes/random",
+							"protocol": "https",
+							"host": [
+								"api",
+								"chucknorris",
+								"io"
+							],
+							"path": [
+								"jokes",
+								"random"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mail auth ",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cc1e6d8d5b8f1a1c236ebf2406b81738-us3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "amer",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://us3.api.mailchimp.com/3.0/",
+							"protocol": "https",
+							"host": [
+								"us3",
+								"api",
+								"mailchimp",
+								"com"
+							],
+							"path": [
+								"3.0",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mailchimp add member",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cc1e6d8d5b8f1a1c236ebf2406b81738-us3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "amer",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"status\": \"subscribed\",\n\t\"email_address\": \"game.megador@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://us3.api.mailchimp.com/3.0/lists/7502004600/members",
+							"protocol": "https",
+							"host": [
+								"us3",
+								"api",
+								"mailchimp",
+								"com"
+							],
+							"path": [
+								"3.0",
+								"lists",
+								"7502004600",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Array test and for loop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bcb61958-3653-4258-a8a0-61371460e717",
+								"exec": [
+									"pm.test(\"Validate array of objects\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var jedanObjekat = jsonData[3];",
+									"    //console.log(jsonData[3]);",
+									"    pm.expect(jedanObjekat.title).to.eql(\"et porro tempora\");",
+									"    ",
+									"    var i;",
+									"    for (i = 0; i < jsonData.length; i++) { ",
+									"        var user = jsonData[i].title;",
+									"        console.log(user);",
+									"    }",
+									"});",
+									"",
+									"pm.test(\"Validate array of objects\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var jedanObjekat = jsonData[3];",
+									"    console.log(jsonData[3]);",
+									"    pm.expect(jedanObjekat.id).to.eql(4);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
